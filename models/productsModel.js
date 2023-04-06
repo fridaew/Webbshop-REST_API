@@ -5,7 +5,7 @@ exports.createNewProduct =(req,res)=>{
 
     if(!name || !description || !price || !imageURL){
         res.status(400).json({
-            message: 'You need to enter'
+            message: 'You need to enter all the fields'
         })
         return
     }
@@ -18,7 +18,7 @@ exports.createNewProduct =(req,res)=>{
 
     .catch(err =>{
             res.status(500).json({
-            message: 'Sometgin went wrong when creating the product',
+            message: 'Something went wrong when creating the product',
             err: err.message
         })
         return
@@ -47,7 +47,7 @@ exports.getProductById = (req,res) =>{
     })
     .catch(err => {
         res.status(500).json({
-            message: 'Something went wrong when getting the products'
+            message: 'Something went wrong when getting the product'
         })
     })
 }
@@ -84,7 +84,7 @@ exports.deleteProduct = (req,res) => {
       })
       .catch(() => {
         res.status(500).json({
-          message: 'Someting went wrong when updating the product',
+          message: 'Something went wrong when deleting the product',
           err: err.message
         })
       })

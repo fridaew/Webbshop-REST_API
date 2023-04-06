@@ -3,12 +3,11 @@ require('dotenv').config()
 
 const secretKey = process.env.SECRET_KEY;
 
-//sign(), skapa en ny token
 exports.generateToken = (data) => {
-return jwt.sign({_id: data._id, displayName: data.displayName}, secretKey, {expiresIn: '1hrs'})
+return jwt.sign({_id: data._id, displayName: data.displayName}, secretKey, {expiresIn: '1h'})
 }
 
-exports.verifyToken = (req, res, next) => { // varifirerar en användare och kollar så att använderen är giltig
+exports.verifyToken = (req, res, next) => { 
 
     try {
       const token = req.headers.authorization.split(' ')[1];

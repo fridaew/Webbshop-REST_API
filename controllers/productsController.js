@@ -1,11 +1,9 @@
 const router = require('express').Router();
 const productModel = require ('../models/productsModel')
-const auth = require('../authentication/auth')
 
-// router.post('/', auth.verifyToken,productModel.createNewProduct) //'veryfyToken'måste den vara med??
-router.post('/',productModel.createNewProduct) //'veryfyToken'måste den vara med??
+router.post('/',productModel.createNewProduct) 
 
-router.get('/',productModel.getAllProducts)// 'veryFytoken'måste den vara med??
+router.get('/',productModel.getAllProducts)
 
 router.get('/:id', productModel.getProductById)
 

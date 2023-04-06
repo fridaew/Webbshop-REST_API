@@ -3,15 +3,15 @@ const bcrypt = require('bcryptjs')
 const auth = require('../authentication/auth')
 
 exports.registerNewUser = async(req, res)=>{
-    const { firstName, lastName, email, password } = req.body; //byggs ihop när vi gör en fetch. Behöver inte heta samma som i mitt schema, men det är det vi skickar i body
+    const { firstName, lastName, email, password } = req.body; 
 
-    if(!firstName || !lastName || !email || !password){ //kollar så att allt är ifyllt
+    if(!firstName || !lastName || !email || !password){ 
         return res.status(400).json({
             message: 'You need to enter all the fields'
         })
     }
 
-    const result = await User.exists({email}) //kollar om användaren redan finns
+    const result = await User.exists({email}) 
 
     if(result) {
     return res. status(400).json({
@@ -20,10 +20,7 @@ exports.registerNewUser = async(req, res)=>{
 
     }
 
-    //kryptera lösenord (hash)
-    //hash returnerar ett promise
-
-    const salt = bcrypt.genSaltSync(10) //10 är default
+    const salt = bcrypt.genSaltSync(10) 
 
     bcrypt.hash(password, salt, (err, hash)=> {
         if(err){
@@ -33,10 +30,10 @@ exports.registerNewUser = async(req, res)=>{
         }
 
         User.create({ firstName, lastName, email, passwordHash:hash})
-        .then(data => { // när jag har skapat min användare så vill jag ksicka in ett response som inehåller en token.
+        .then(data => { 
             res.status(201).json({
                 token: auth.generateToken(data)
-            }) //strukturen som vi har i vårat schema
+            }) 
     })
     
     })
@@ -57,7 +54,7 @@ exports.loginUser = (req,res)=>{
 
     User.findOne({email})
     .then(data => {
-        if(!data){ //hitta en user, om inte så får vi detta felmeddelande
+        if(!data){ 
             return res.status(401).json({
                 message: 'Incorrect credentials'
             })
@@ -66,7 +63,7 @@ exports.loginUser = (req,res)=>{
         bcrypt.compare(password, data.passwordHash, (err, result)=>{
             if(err) {
                 return res.status(500).json({
-                    message: ' Somethin went wrong when creating password'
+                    message: 'Something went wrong when creating password'
                 })
             }
 

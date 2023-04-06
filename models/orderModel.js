@@ -1,7 +1,7 @@
 const Order = require('../schemas/orderSchema')
 exports.createOrder = (req,res)=>{
 
-    const {productId, quantity } = req.body
+    const {productId, quantity} = req.body
 
     if(!productId){
         res.status(400).json({
@@ -9,6 +9,13 @@ exports.createOrder = (req,res)=>{
         })
         return
     }
+    if(!quantity){
+        res.status(400).json({
+            message: 'You need to add quantity'
+        })
+        return
+    }
+  
 
     const order = new Order({ userId: req.userData._id, orders: [{ productId, quantity }] });
     
