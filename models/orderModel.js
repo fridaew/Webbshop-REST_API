@@ -17,7 +17,7 @@ exports.createOrder = (req,res)=>{
     }
   
 
-    const order = new Order({ userId: req.userData._id, orders: [{ productId, quantity }] });
+    const order = new Order({ userId: req.userData._id, orders:{productId,quantity}});
     
     order.save()
         .then(data =>{
